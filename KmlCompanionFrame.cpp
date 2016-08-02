@@ -1,14 +1,17 @@
 #include "KmlCompanionFrame.h"
 #include<wx/grid.h>
+#include <wx/filedlg.h>
 
 enum
 {
-    ID_Hello = 1
+    KmlC_ID_Hello = wxID_HIGHEST + 1,
+    KmlC_ID_Open
 };
 
 wxBEGIN_EVENT_TABLE(KmlCompanionFrame, wxFrame)
-    EVT_MENU(ID_Hello,   KmlCompanionFrame::OnHello)
-    EVT_MENU(wxID_EXIT,  KmlCompanionFrame::OnExit)
+    EVT_MENU(KmlC_ID_Hello, KmlCompanionFrame::OnHello)
+    EVT_MENU(KmlC_ID_Open, KmlCompanionFrame::OnOpen)
+    EVT_MENU(wxID_EXIT, KmlCompanionFrame::OnExit)
     EVT_MENU(wxID_ABOUT, KmlCompanionFrame::OnAbout)
 wxEND_EVENT_TABLE()
 
@@ -16,7 +19,8 @@ KmlCompanionFrame::KmlCompanionFrame(const wxString& title, const wxPoint& pos, 
         : wxFrame(NULL, wxID_ANY, title, pos, size)
 {
     wxMenu *menuFile = new wxMenu;
-    menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
+    menuFile->Append(KmlC_ID_Open, "&Open file...\tCtrl-O");
+    menuFile->Append(KmlC_ID_Hello, "&Hello...\tCtrl-H",
                      "Help string shown in status bar for this menu item");
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT);
@@ -38,11 +42,37 @@ void KmlCompanionFrame::OnExit(wxCommandEvent& event)
 }
 void KmlCompanionFrame::OnAbout(wxCommandEvent& event)
 {
-    //wxMessageBox( "This is a wxWidgets' Hello world sample",
-    //              "About Hello World", wxOK | wxICON_INFORMATION );
     my_helper.HelloKml(true);
 }
 void KmlCompanionFrame::OnHello(wxCommandEvent& event)
 {
     wxLogMessage("Hello world from wxWidgets!");
+}
+
+void KmlCompanionFrame::OnOpen(wxCommandEvent& event)
+{
+  wxFileDialog dialog
+               (
+                  this,
+                  wxT("Testing open file dialog"),
+                  wxEmptyString,
+                  wxEmptyString,
+                  wxT("KML files (*.kml;*.kmz)|*.kml;*.kmz")
+               );
+
+  dialog.CentreOnParent();
+  dialog.SetDirectory(wxGetHomeDir());
+
+  if (dialog.ShowModal() == wxID_OK)
+  {
+      wxString info;
+      info.Printf(wxT("Full file name: %s\n")
+                  wxT("Path: %s\n")
+                  wxT("Name: %s\n"),
+                  dialog.GetPath().c_str(),
+                  dialog.GetDirectory().c_str(),
+                  dialog.GetFilename().c_str());
+      wxMessageDialog dialog2(this, info, wxT("Selected file"));
+      dialog2.ShowModal();
+  }
 }
