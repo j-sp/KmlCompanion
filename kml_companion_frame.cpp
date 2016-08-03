@@ -1,4 +1,4 @@
-#include "KmlCompanionFrame.h"
+#include "kml_companion_frame.h"
 #include<wx/grid.h>
 #include <wx/filedlg.h>
 
@@ -73,6 +73,10 @@ void KmlCompanionFrame::OnOpen(wxCommandEvent& event)
                   dialog.GetDirectory().c_str(),
                   dialog.GetFilename().c_str());
       wxMessageDialog dialog2(this, info, wxT("Selected file"));
-      dialog2.ShowModal();
+      //dialog2.ShowModal();
+      std::string path;
+      path = dialog.GetPath().ToStdString();
+      my_helper.ReadKmlFile(path);
+
   }
 }

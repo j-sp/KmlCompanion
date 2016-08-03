@@ -22,8 +22,8 @@
 #endif
 
 
-#include "KmlCompanion.h"
-#include "KmlCompanionFrame.h"
+#include "kml_companion.h"
+#include "kml_companion_frame.h"
 
 wxIMPLEMENT_APP(KmlCompanion);
 

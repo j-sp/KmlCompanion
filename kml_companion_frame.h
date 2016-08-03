@@ -4,7 +4,7 @@
     #include <wx/wx.h>
 #endif
 
-#include "KmlHelper.h"
+#include "kml_helper.h"
 
 class KmlCompanionFrame: public wxFrame
 {

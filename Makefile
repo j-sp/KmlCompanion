@@ -1,19 +1,19 @@
 CXX = $(shell wx-config --cxx)
 
-PROGRAM = KmlCompanion
+PROGRAM = kml_companion
 
-OBJECTS = KmlCompanion.o KmlHelper.o KmlCompanionFrame.o
+OBJECTS = kml_companion.o kml_helper.o kml_companion_frame.o
 
 $(PROGRAM): $(OBJECTS)
 	$(CXX) -o $(PROGRAM) $(OBJECTS) `wx-config --libs` -lkmlbase -lkmldom
 
-KmlCompanion.o: KmlCompanion.cpp KmlCompanion.h KmlCompanionFrame.h
+kml_companion.o: kml_companion.cpp kml_companion.h kml_companion_frame.h
 	$(CXX) -c `wx-config --cxxflags` -o $@ $<
 
-KmlCompanionFrame.o: KmlCompanionFrame.cpp KmlCompanionFrame.h
+kml_companion_frame.o: kml_companion_frame.cpp kml_companion_frame.h
 	$(CXX) -c `wx-config --cxxflags` -o $@ $<
 
-KmlHelper.o: KmlHelper.cpp KmlHelper.h
+kml_helper.o: kml_helper.cpp kml_helper.h
 	$(CXX) -c `wx-config --cxxflags` -o $@ $<
 
 clean:

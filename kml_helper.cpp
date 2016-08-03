@@ -1,4 +1,10 @@
-#include "KmlHelper.h"
+#include "kml_helper.h"
+
+void KmlHelper::ReadKmlFile(const string& filename) {
+  string s;
+  File::ReadFileToString(filename, &s);
+  cout << s;
+}
 
 void KmlHelper::HelloKml(bool verbose) {
   KmlFactory* factory(KmlFactory::GetFactory());
