@@ -42,7 +42,7 @@ void KmlCompanionFrame::OnExit(wxCommandEvent& event)
 }
 void KmlCompanionFrame::OnAbout(wxCommandEvent& event)
 {
-    my_helper.HelloKml(true);
+    
 }
 void KmlCompanionFrame::OnHello(wxCommandEvent& event)
 {

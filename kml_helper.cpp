@@ -1,49 +1,55 @@
 #include "kml_helper.h"
 
-void KmlHelper::ReadKmlFile(const string& filename) {
-  string s;
-  File::ReadFileToString(filename, &s);
-  cout << s;
+void KmlHelper::ReadKmlFile(const std::string& filename) {
+  SavePlacemarks(GetKmlFileRootFeature(filename), &placemark_vector);
+  cout << "The size of the vector is " << placemark_vector.size() << "\n" << std::flush;
 }
 
-void KmlHelper::HelloKml(bool verbose) {
-  KmlFactory* factory(KmlFactory::GetFactory());
-  // <coordinates>
-  CoordinatesPtr coordinates(factory->CreateCoordinates());
-  coordinates->add_latlngalt(37.123, -122.456, 314.159);
-  // <Point><coordinates>...
-  PointPtr point(factory->CreatePoint());
-  point->set_coordinates(coordinates);
-  // <Point><altitudeMode>...<coordinates>...
-  point->set_altitudemode(kmldom::ALTITUDEMODE_RELATIVETOGROUND);
-  assert(point->get_altitudemode() == kmldom::ALTITUDEMODE_RELATIVETOGROUND);
-  // <Placemark><Point><coordinates>...
-  PlacemarkPtr placemark(factory->CreatePlacemark());
-  placemark->set_geometry(point);
-
-  // A Placemark is (duh) a Placemark
-  assert (placemark->Type() == kmldom::Type_Placemark);
-  // It's also a Feature.
-  assert(placemark->IsA(kmldom::Type_Feature));
-  placemark->set_name("point placemark");
-  if (verbose) {
-    cout << "Placemark's name is " << placemark->get_name() << endl;
-  }
-  // We know it has some geometry.
-  assert(placemark->has_geometry());
-  // And we can test to see if that geometry is a Point.
-  assert(placemark->get_geometry()->IsA(kmldom::Type_Point));
-  // If it is, we can make a point from it. (Yes, API should hide casting.)
-  const PointPtr pt = kmldom::AsPoint(placemark->get_geometry());
-  assert(pt->get_altitudemode() == kmldom::ALTITUDEMODE_RELATIVETOGROUND);
-  if (verbose) {
-    cout.precision(6);
-    cout << placemark->get_name() << " is located at: ";
-    cout << pt->get_coordinates()->get_coordinates_array_at(0).get_latitude()
-         << ", ";
-    cout << pt->get_coordinates()->get_coordinates_array_at(0).get_longitude()
-         << endl;
+FeaturePtr KmlHelper::GetKmlFileRootFeature(const std::string& kmlfile) {
+  cout << "entering GetKmlFileRootFeature\n" << std::flush;
+  // Read the file.
+  std::string file_data;
+  if (!kmlbase::File::ReadFileToString(kmlfile, &file_data)) {
+    cout << kmlfile << " read failed" << endl;
+    return NULL;
   }
 
-  // All storage is freed by smart pointers as they go out of scope.
+  // If the file was KMZ, extract the KML file.
+  std::string kml;
+  if (KmzFile::IsKmz(file_data)) {
+    KmzFilePtr kmz_file = KmzFile::OpenFromString(kmlfile);
+    if (!kmz_file) {
+      cout << "Failed opening KMZ file" << endl;
+      return NULL;
+    }
+    if (!kmz_file->ReadKml(&kml)) {
+      cout << "Failed to read KML from KMZ" << endl;
+      return NULL;
+    }
+  } else {
+    kml = file_data;
+  }
+
+  // Parse it.
+  std::string errors;
+  KmlFilePtr kml_file = KmlFile::CreateFromParse(kml, &errors);
+  if (!kml_file) {
+    cout << errors << endl;
+    return FeaturePtr();
+  }
+
+  // Get the root
+  return kmlengine::GetRootFeature(kml_file->get_root());
+}
+
+void KmlHelper::SavePlacemarks(const FeaturePtr& feature,
+                           placemark_vector_t* placemarks) {
+  cout << "entering SavePlacemarks\n" << std::flush;
+  if (PlacemarkPtr placemark = kmldom::AsPlacemark(feature)) {
+    placemarks->push_back(placemark);
+  } else if (const ContainerPtr container = kmldom::AsContainer(feature)) {
+    for (size_t i = 0; i < container->get_feature_array_size(); ++i) {
+      SavePlacemarks(container->get_feature_array_at(i), placemarks);
+    }
+  }
 }
