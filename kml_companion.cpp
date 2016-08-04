@@ -15,13 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with KmlCompanion.  If not, see <http://www.gnu.org/licenses/>.
 
-// For compilers that support precompilation, includes "wx/wx.h".
-#include <wx/wxprec.h>
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
-
 #include "kml_companion.h"
 #include "kml_companion_frame.h"
 

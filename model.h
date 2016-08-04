@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-#include "placemark.h"
+#include "simple_placemark.h"
 #include "kml_helper.h"
 
 class Model {
@@ -8,6 +8,6 @@ public:
   void ReadFile(const std::string& filename);
 
 private:
-  std::vector<Placemark> placemarks;
+  std::vector<SimplePlacemark> placemarks;
   KmlHelper kml_helper;
 };

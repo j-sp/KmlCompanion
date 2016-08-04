@@ -1,8 +1,9 @@
 #include "kml_helper.h"
 
-void KmlHelper::ReadKmlFile(const std::string& filename) {
-  SavePlacemarks(GetKmlFileRootFeature(filename), &placemark_vector);
-  cout << "The size of the vector is " << placemark_vector.size() << "\n" << std::flush;
+void KmlHelper::ReadKmlFile(const std::string& filename,
+                            simple_placemark_vector_t* placemarks) {
+  SavePlacemarks(GetKmlFileRootFeature(filename), &kml_placemark_vector);
+  cout << "The size of the vector is " << kml_placemark_vector.size() << "\n" << std::flush;
 }
 
 FeaturePtr KmlHelper::GetKmlFileRootFeature(const std::string& kmlfile) {
@@ -43,13 +44,13 @@ FeaturePtr KmlHelper::GetKmlFileRootFeature(const std::string& kmlfile) {
 }
 
 void KmlHelper::SavePlacemarks(const FeaturePtr& feature,
-                           placemark_vector_t* placemarks) {
+                           kml_placemark_vector_t* kml_placemarks) {
   cout << "entering SavePlacemarks\n" << std::flush;
-  if (PlacemarkPtr placemark = kmldom::AsPlacemark(feature)) {
-    placemarks->push_back(placemark);
+  if (PlacemarkPtr kml_placemark = kmldom::AsPlacemark(feature)) {
+    kml_placemarks->push_back(kml_placemark);
   } else if (const ContainerPtr container = kmldom::AsContainer(feature)) {
     for (size_t i = 0; i < container->get_feature_array_size(); ++i) {
-      SavePlacemarks(container->get_feature_array_at(i), placemarks);
+      SavePlacemarks(container->get_feature_array_at(i), kml_placemarks);
     }
   }
 }

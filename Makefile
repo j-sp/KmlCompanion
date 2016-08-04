@@ -2,7 +2,7 @@ CXX = $(shell wx-config --cxx)
 
 PROGRAM = kml_companion
 
-OBJECTS = kml_companion.o kml_helper.o kml_companion_frame.o placemark.o \
+OBJECTS = kml_companion.o kml_helper.o kml_companion_frame.o simple_placemark.o \
           model.o
 
 $(PROGRAM): $(OBJECTS)
@@ -17,7 +17,7 @@ kml_companion_frame.o: kml_companion_frame.cpp kml_companion_frame.h
 kml_helper.o: kml_helper.cpp kml_helper.h
 	$(CXX) -c `wx-config --cxxflags` -o $@ $<
 
-placemark.o: placemark.cpp placemark.h
+simple_placemark.o: simple_placemark.cpp simple_placemark.h
 	$(CXX) -c -o $@ $<
 
 model.o: model.cpp model.h
