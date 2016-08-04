@@ -42,7 +42,7 @@ void KmlCompanionFrame::OnExit(wxCommandEvent& event)
 }
 void KmlCompanionFrame::OnAbout(wxCommandEvent& event)
 {
-    
+
 }
 void KmlCompanionFrame::OnHello(wxCommandEvent& event)
 {
@@ -76,7 +76,7 @@ void KmlCompanionFrame::OnOpen(wxCommandEvent& event)
       //dialog2.ShowModal();
       std::string path;
       path = dialog.GetPath().ToStdString();
-      my_helper.ReadKmlFile(path);
+      data_model.ReadFile(path);
 
   }
 }

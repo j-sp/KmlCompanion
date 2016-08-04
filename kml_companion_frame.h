@@ -4,14 +4,14 @@
     #include <wx/wx.h>
 #endif
 
-#include "kml_helper.h"
+#include "model.h"
 
 class KmlCompanionFrame: public wxFrame
 {
 public:
     KmlCompanionFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
 private:
-    KmlHelper my_helper;
+    Model data_model;
     void OnHello(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
