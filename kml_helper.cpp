@@ -2,8 +2,22 @@
 
 void KmlHelper::ReadKmlFile(const std::string& filename,
                             simple_placemark_vector_t* placemarks) {
+  kml_placemark_vector.clear();
   SavePlacemarks(GetKmlFileRootFeature(filename), &kml_placemark_vector);
-  cout << "The size of the vector is " << kml_placemark_vector.size() << "\n" << std::flush;
+  cout << "The size of the KML vector is " << kml_placemark_vector.size()
+       << std::endl << std::endl << std::flush;
+  placemarks->clear();
+  kmldom::PointPtr pt;
+  for(int i = 0; i < kml_placemark_vector.size(); i++){
+    if (kml_placemark_vector[i]->has_geometry())
+     if (kml_placemark_vector[i]->get_geometry()->IsA(kmldom::Type_Point)) {
+      pt = kmldom::AsPoint(kml_placemark_vector[i]->get_geometry());
+      placemarks->push_back(SimplePlacemark(kml_placemark_vector[i]->get_name(),
+       pt->get_coordinates()->get_coordinates_array_at(0).get_latitude(),
+       pt->get_coordinates()->get_coordinates_array_at(0).get_longitude(),
+       pt->get_coordinates()->get_coordinates_array_at(0).get_altitude()));
+   }
+  }
 }
 
 FeaturePtr KmlHelper::GetKmlFileRootFeature(const std::string& kmlfile) {

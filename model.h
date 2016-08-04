@@ -6,6 +6,7 @@
 class Model {
 public:
   void ReadFile(const std::string& filename);
+  void Print();
 
 private:
   std::vector<SimplePlacemark> placemarks;

@@ -65,18 +65,9 @@ void KmlCompanionFrame::OnOpen(wxCommandEvent& event)
 
   if (dialog.ShowModal() == wxID_OK)
   {
-      wxString info;
-      info.Printf(wxT("Full file name: %s\n")
-                  wxT("Path: %s\n")
-                  wxT("Name: %s\n"),
-                  dialog.GetPath().c_str(),
-                  dialog.GetDirectory().c_str(),
-                  dialog.GetFilename().c_str());
-      wxMessageDialog dialog2(this, info, wxT("Selected file"));
-      //dialog2.ShowModal();
       std::string path;
       path = dialog.GetPath().ToStdString();
       data_model.ReadFile(path);
-
+      data_model.Print();
   }
 }
