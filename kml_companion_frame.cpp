@@ -1,5 +1,4 @@
 #include "kml_companion_frame.h"
-#include<wx/grid.h>
 #include <wx/filedlg.h>
 
 enum
@@ -33,8 +32,8 @@ KmlCompanionFrame::KmlCompanionFrame(const wxString& title, const wxPoint& pos, 
     CreateStatusBar();
     SetStatusText( "Welcome to wxWidgets!" );
 
-    wxGrid *myGrid = new wxGrid(this, wxID_ANY);
-    myGrid->CreateGrid(10, 10);
+    grid_view = new wxGrid(this, wxID_ANY);
+    grid_view->CreateGrid(10, 10);
 }
 void KmlCompanionFrame::OnExit(wxCommandEvent& event)
 {
@@ -69,5 +68,9 @@ void KmlCompanionFrame::OnOpen(wxCommandEvent& event)
       path = dialog.GetPath().ToStdString();
       data_model.ReadFile(path);
       data_model.Print();
+
+      // insert code here to update the view with the contents of the
+      // data model
+      // create a View data_view and call data_view.update(data_model);
   }
 }
