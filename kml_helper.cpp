@@ -32,7 +32,7 @@ FeaturePtr KmlHelper::GetKmlFileRootFeature(const std::string& kmlfile) {
   // If the file was KMZ, extract the KML file.
   std::string kml;
   if (KmzFile::IsKmz(file_data)) {
-    KmzFilePtr kmz_file = KmzFile::OpenFromString(kmlfile);
+    KmzFilePtr kmz_file = KmzFile::OpenFromString(file_data);
     if (!kmz_file) {
       cout << "Failed opening KMZ file" << endl;
       return NULL;
