@@ -1,3 +1,6 @@
+#ifndef KML_HELPER_H
+#define KML_HELPER_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -30,3 +33,5 @@ private:
   FeaturePtr GetKmlFileRootFeature(const std::string&);
   void SavePlacemarks(const FeaturePtr&, kml_placemark_vector_t* );
 };
+
+#endif

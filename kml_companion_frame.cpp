@@ -1,17 +1,12 @@
 #include "kml_companion_frame.h"
 #include <wx/filedlg.h>
 
-enum
-{
-    KmlC_ID_Hello = wxID_HIGHEST + 1,
-    KmlC_ID_Open
-};
-
 wxBEGIN_EVENT_TABLE(KmlCompanionFrame, wxFrame)
     EVT_MENU(KmlC_ID_Hello, KmlCompanionFrame::OnHello)
     EVT_MENU(KmlC_ID_Open, KmlCompanionFrame::OnOpen)
     EVT_MENU(wxID_EXIT, KmlCompanionFrame::OnExit)
     EVT_MENU(wxID_ABOUT, KmlCompanionFrame::OnAbout)
+    EVT_BUTTON(KmlC_ID_GO, KmlCompanionFrame::OnGo)
 wxEND_EVENT_TABLE()
 
 KmlCompanionFrame::KmlCompanionFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
@@ -31,9 +26,7 @@ KmlCompanionFrame::KmlCompanionFrame(const wxString& title, const wxPoint& pos, 
     SetMenuBar( menuBar );
     CreateStatusBar();
     SetStatusText( "Welcome to wxWidgets!" );
-
-    grid_view = new wxGrid(this, wxID_ANY);
-    grid_view->CreateGrid(10, 10);
+    view = new View(this);
 }
 void KmlCompanionFrame::OnExit(wxCommandEvent& event)
 {
@@ -41,8 +34,14 @@ void KmlCompanionFrame::OnExit(wxCommandEvent& event)
 }
 void KmlCompanionFrame::OnAbout(wxCommandEvent& event)
 {
-
+  SetStatusText( "About clicked" );
 }
+
+void KmlCompanionFrame::OnGo(wxCommandEvent& event)
+{
+  SetStatusText( "Go button clicked" );
+}
+
 void KmlCompanionFrame::OnHello(wxCommandEvent& event)
 {
     wxLogMessage("Hello world from wxWidgets!");

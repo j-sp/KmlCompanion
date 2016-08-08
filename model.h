@@ -1,3 +1,6 @@
+#ifndef MODEL_H
+#define MODEL_H
+
 #include <string>
 #include <vector>
 #include "simple_placemark.h"
@@ -12,3 +15,5 @@ private:
   std::vector<SimplePlacemark> placemarks;
   KmlHelper kml_helper;
 };
+
+#endif
