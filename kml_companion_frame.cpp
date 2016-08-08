@@ -66,7 +66,8 @@ void KmlCompanionFrame::OnOpen(wxCommandEvent& event)
       std::string path;
       path = dialog.GetPath().ToStdString();
       data_model.ReadFile(path);
-      data_model.Print();
+      view->UpdateUI(data_model);
+      //data_model.Print();
 
       // insert code here to update the view with the contents of the
       // data model

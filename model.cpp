@@ -13,3 +13,7 @@ void Model::Print(){
     cout << std::endl << std::flush;
   }
 }
+
+std::vector<SimplePlacemark> Model::GetPlacemarks(){
+  return placemarks;
+}

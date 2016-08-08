@@ -17,6 +17,7 @@ class View: public wxPanel
 public:
 
     View(wxWindow *parent);
+    void UpdateUI(Model data_model);
 
 private:
 

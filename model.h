@@ -9,6 +9,7 @@
 class Model {
 public:
   void ReadFile(const std::string& filename);
+  std::vector<SimplePlacemark> GetPlacemarks();
   void Print();
 
 private:
