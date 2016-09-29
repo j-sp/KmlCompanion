@@ -22,7 +22,7 @@ wxIMPLEMENT_APP(KmlCompanion);
 
 bool KmlCompanion::OnInit()
 {
-    KmlCompanionFrame *frame = new KmlCompanionFrame( "Hello World", wxPoint(50, 50), wxSize(450, 340) );
+    KmlCompanionFrame *frame = new KmlCompanionFrame( "KML Companion", wxPoint(50, 50), wxSize(1024, 768) );
     frame->Show( true );
     return true;
 }

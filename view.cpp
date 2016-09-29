@@ -3,6 +3,7 @@
 View::View(wxWindow *parent)
         : wxPanel(parent)
 {
+    const int nb_cols = 4;
     wxBoxSizer *topSizer = new wxBoxSizer( wxHORIZONTAL );
 
     topSizer->Add(
@@ -12,9 +13,13 @@ View::View(wxWindow *parent)
     10 );        // set border width to 10
 
     grid_view = new wxGrid(this, wxID_ANY);
-    grid_view->CreateGrid(10, 4);
-    grid_view->SetColLabelValue(0, "Latitude");
-    grid_view->SetColLabelValue(1, "Longitude");
+    grid_view->CreateGrid(100, nb_cols);
+
+    for (int i = 0; i<nb_cols; i++)
+      grid_view->SetColSize(i, 200);
+
+    grid_view->SetColLabelValue(0, "Latitude (deg)");
+    grid_view->SetColLabelValue(1, "Longitude (deg)");
     grid_view->SetColLabelValue(2, "Name");
     grid_view->SetColLabelValue(3, "Value");
 
