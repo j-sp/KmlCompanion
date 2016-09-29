@@ -22,7 +22,15 @@ wxIMPLEMENT_APP(KmlCompanion);
 
 bool KmlCompanion::OnInit()
 {
+    int frame_width, frame_height;
+
     KmlCompanionFrame *frame = new KmlCompanionFrame( "KML Companion", wxPoint(50, 50), wxSize(1024, 768) );
+
+    //Find optimal width and fix height to some reasonable value
+    frame->Fit();
+    frame->GetSize(&frame_width, &frame_height);
+    frame->SetSize(frame_width, 480);
+    
     frame->Show( true );
     return true;
 }

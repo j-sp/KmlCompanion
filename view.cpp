@@ -13,7 +13,7 @@ View::View(wxWindow *parent)
     10 );        // set border width to 10
 
     grid_view = new wxGrid(this, wxID_ANY);
-    grid_view->CreateGrid(100, nb_cols);
+    grid_view->CreateGrid(default_nb_lines, nb_cols);
 
     for (int i = 0; i<nb_cols; i++)
       grid_view->SetColSize(i, 200);
@@ -33,11 +33,11 @@ void View::UpdateUI(Model data_model) {
   int current_rows = grid_view->GetNumberRows();
   int new_rows = placemarks.size();
 
-  if (new_rows < current_rows)
-    grid_view->DeleteRows(0, current_rows-new_rows, true);
+  if (new_rows < default_nb_lines)
+    grid_view->DeleteRows(0, current_rows-default_nb_lines, true);
 
-  if (new_rows > current_rows)
-    grid_view->AppendRows(new_rows - current_rows, true);
+  if (new_rows > default_nb_lines)
+    grid_view->AppendRows(new_rows - default_nb_lines, true);
 
   for (int i = 0; i < new_rows; i++) {
     grid_view->SetCellValue(i, 0, wxString::Format(wxT("%f"),

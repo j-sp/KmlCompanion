@@ -25,7 +25,7 @@ KmlCompanionFrame::KmlCompanionFrame(const wxString& title, const wxPoint& pos, 
     menuBar->Append( menuHelp, "&Help" );
     SetMenuBar( menuBar );
     CreateStatusBar();
-    SetStatusText( "Welcome to wxWidgets!" );
+    SetStatusText( "Welcome to KML Companion!" );
     view = new View(this);
 }
 void KmlCompanionFrame::OnExit(wxCommandEvent& event)

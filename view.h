@@ -22,6 +22,7 @@ public:
 private:
 
     wxGrid *grid_view;
+    static const int default_nb_lines = 100;
 
 };
 
