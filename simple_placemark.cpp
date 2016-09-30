@@ -39,3 +39,11 @@ void SimplePlacemark::SetAlt(double aAltitude){
 double SimplePlacemark::GetAlt(){
   return altitude;
 }
+
+void SimplePlacemark::SetValue(double aValue){
+  value = aValue;
+}
+
+double SimplePlacemark::GetValue(){
+  return value;
+}

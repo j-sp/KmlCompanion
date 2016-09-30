@@ -18,12 +18,13 @@ public:
 
     View(wxWindow *parent);
     void UpdateUI(Model data_model);
+    void DumpView();
 
 private:
 
     wxGrid *grid_view;
-    static const int default_nb_lines = 100;
-
+    static const int default_rows = 100;
+    int rows;
 };
 
 #endif

@@ -39,7 +39,7 @@ void KmlCompanionFrame::OnAbout(wxCommandEvent& event)
 
 void KmlCompanionFrame::OnGo(wxCommandEvent& event)
 {
-  SetStatusText( "Go button clicked" );
+  view->DumpView();
 }
 
 void KmlCompanionFrame::OnHello(wxCommandEvent& event)
@@ -52,7 +52,7 @@ void KmlCompanionFrame::OnOpen(wxCommandEvent& event)
   wxFileDialog dialog
                (
                   this,
-                  wxT("Testing open file dialog"),
+                  wxT("Open file dialog"),
                   wxEmptyString,
                   wxEmptyString,
                   wxT("KML files (*.kml;*.kmz)|*.kml;*.kmz")
@@ -65,7 +65,9 @@ void KmlCompanionFrame::OnOpen(wxCommandEvent& event)
   {
       std::string path;
       path = dialog.GetPath().ToStdString();
+      //std::cout << "Before data model read file" << std::endl << std::flush;
       data_model.ReadFile(path);
+      //std::cout << "After data model read file" << std::endl << std::flush;
       view->UpdateUI(data_model);
       //data_model.Print();
 

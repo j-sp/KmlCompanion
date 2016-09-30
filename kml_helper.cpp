@@ -4,8 +4,6 @@ void KmlHelper::ReadKmlFile(const std::string& filename,
                             simple_placemark_vector_t* placemarks) {
   kml_placemark_vector.clear();
   SavePlacemarks(GetKmlFileRootFeature(filename), &kml_placemark_vector);
-  cout << "The size of the KML vector is " << kml_placemark_vector.size()
-       << std::endl << std::endl << std::flush;
   placemarks->clear();
   kmldom::PointPtr pt;
   for(int i = 0; i < kml_placemark_vector.size(); i++){
@@ -21,7 +19,7 @@ void KmlHelper::ReadKmlFile(const std::string& filename,
 }
 
 FeaturePtr KmlHelper::GetKmlFileRootFeature(const std::string& kmlfile) {
-  cout << "entering GetKmlFileRootFeature\n" << std::flush;
+  //cout << "entering GetKmlFileRootFeature\n" << std::flush;
   // Read the file.
   std::string file_data;
   if (!kmlbase::File::ReadFileToString(kmlfile, &file_data)) {
@@ -59,7 +57,7 @@ FeaturePtr KmlHelper::GetKmlFileRootFeature(const std::string& kmlfile) {
 
 void KmlHelper::SavePlacemarks(const FeaturePtr& feature,
                            kml_placemark_vector_t* kml_placemarks) {
-  cout << "entering SavePlacemarks\n" << std::flush;
+  //cout << "entering SavePlacemarks\n" << std::flush;
   if (PlacemarkPtr kml_placemark = kmldom::AsPlacemark(feature)) {
     kml_placemarks->push_back(kml_placemark);
   } else if (const ContainerPtr container = kmldom::AsContainer(feature)) {

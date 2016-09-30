@@ -6,10 +6,11 @@ void Model::ReadFile(const std::string& filename){
 
 void Model::Print(){
   for(int i = 0; i < placemarks.size(); i++) {
-    cout << "Name: " << placemarks[i].GetName() << std::endl;
-    cout << "Latitude: " << placemarks[i].GetLat() << std::endl;
+    cout << "Name     : " << placemarks[i].GetName() << std::endl;
+    cout << "Latitude : " << placemarks[i].GetLat() << std::endl;
     cout << "Longitude: " << placemarks[i].GetLong() << std::endl;
-    cout << "Altitude: " << placemarks[i].GetAlt() << std::endl;
+    cout << "Altitude : " << placemarks[i].GetAlt() << std::endl;
+    cout << "Value    : " << placemarks[i].GetValue() << std::endl;
     cout << std::endl << std::flush;
   }
 }

@@ -15,9 +15,11 @@ public:
   double GetLong();
   void SetAlt(double);
   double GetAlt();
+  void SetValue(double);
+  double GetValue();
 
 private:
-  double latitude, longitude, altitude;
+  double latitude, longitude, altitude, value;
   std::string name;
 };
 
