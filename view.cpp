@@ -35,7 +35,7 @@ View::View(wxWindow *parent)
     SetSizerAndFit(topSizer);
 }
 
-void View::UpdateUI(Model data_model) {
+void View::UpdateUI(const Model &data_model) {
   std::vector<SimplePlacemark> placemarks = data_model.GetPlacemarks();
   //int current_rows = grid_view->GetNumberRows();
   int used_rows = placemarks.size();
